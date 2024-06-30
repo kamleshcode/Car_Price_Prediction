@@ -1,0 +1,16 @@
+COLUMNS:
+  name: int64
+  year: int64
+  selling_price: int64
+  km_driven: int64
+  fuel: int64
+  seller_type: int64
+  transmission: int64
+  owner: int64
+  mileage: float64
+  engine: float64
+  max_power: float64
+  seats: float64
+
+TARGET_COLUMN:
+  name: selling_price
