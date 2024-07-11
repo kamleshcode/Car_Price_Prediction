@@ -11,10 +11,11 @@ class DataTransformation:
 
     def preprocess_data(self, data):
         # Drop missing values
-        data.dropna(inplace=True)
+        data= data.dropna()
+    
         
         # Drop duplicate rows
-        data.drop_duplicates(inplace=True)
+        data= data.drop_duplicates()
         
         # Extract brand name
         def get_brand_name(car_name):
@@ -45,7 +46,7 @@ class DataTransformation:
             'Kia': 25, 'Fiat': 26, 'Force': 27, 'Ambassador': 28, 'Ashok': 29,
             'Isuzu': 30, 'Opel': 31
         }
-        data['name'].replace(brand_mapping, inplace=True)
+        data['name'] = data['name'].replace(brand_mapping).infer_objects(copy=False)
         
         data['transmission'].replace({'Manual': 1, 'Automatic': 2}, inplace=True)
         data['seller_type'].replace({'Individual': 1, 'Dealer': 2, 'Trustmark Dealer': 3}, inplace=True)
@@ -54,7 +55,7 @@ class DataTransformation:
                                'Fourth & Above Owner': 4, 'Test Drive Car': 5}, inplace=True)
         
         # Reset index
-        data.reset_index(inplace=True, drop=True)
+        data.reset_index( drop=True)
         
         return data
         
@@ -66,6 +67,8 @@ class DataTransformation:
 
     def train_test_spliting(self):
         data = pd.read_csv(self.config.data_path)
+        # Dropping torque column
+        data.drop(columns=['torque'], inplace=True)
 
         # Split the data into training and test sets. (0.75, 0.25) split.
         train, test = train_test_split(data)
