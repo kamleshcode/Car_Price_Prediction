@@ -5,8 +5,9 @@
 import streamlit as st
 import pandas as pd
 
+from carpriceproject.components.data_evalution import ModelEvaluation
 from carpriceproject.pipeline.prediction import PredictionPipeline
-from carpriceproject.components.data_evaluation import ModelEvaluation
+
 from carpriceproject.entity.config_entity import ModelEvaluationConfig
 
 # Set page configuration
