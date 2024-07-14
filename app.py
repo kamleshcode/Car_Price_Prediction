@@ -1,6 +1,3 @@
-# 
-
-
 
 import streamlit as st
 import pandas as pd
@@ -104,16 +101,17 @@ def start_predicting():
         st.markdown(f'**Predicted Car Price:** ₹ {predictions[0]:.2f}')
 
 # Function to evaluate the model
+
 def evaluate_model():
     st.subheader("Model Evaluation")
-    test_data_path = st.text_input("Enter the path to the test data CSV", value="path/to/test_data.csv")
+    test_data_path = st.text_input("Enter the path to the test data CSV", value="artifacts/data_transformation/test.csv")
     model_path = st.text_input("Enter the path to the model file", value="artifacts/model_trainer/model.joblib")
     target_column = st.text_input("Enter the target column name", value="price")
     metric_file_name = "metrics.json"
 
     if st.button("Evaluate", key="evaluate_button", help="Click to evaluate the model"):
         with st.spinner("🔍 Evaluating the model..."):
-            evaluation_config = ModelEvaluationConfig(test_data_path, model_path, target_column, metric_file_name)
+            evaluation_config = ModelEvaluationConfig(test_data_path, model_path, metric_file_name, target_column)
             evaluator = ModelEvaluation(config=evaluation_config)
             metrics = evaluator.save_results()
             st.success("Evaluation completed.")
